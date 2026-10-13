@@ -2,13 +2,14 @@
   command = "npm run build"
   publish = "dist"
 
-# Single-Page Application (SPA) redirect rule
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Headers for MP4 video streaming on Netlify
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Accept-Ranges = "bytes"
+    Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache control for high-performance static video and assets
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -21,3 +22,14 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Static assets pass-through before SPA rewrite
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

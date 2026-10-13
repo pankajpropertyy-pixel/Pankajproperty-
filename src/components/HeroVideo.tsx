@@ -79,6 +79,11 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
     setVideoError(false);
     setVideoLoaded(false);
 
+    // Explicitly set DOM muted properties to pass strict browser autoplay policies
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
     if (prefersReducedMotion) {
       video.pause();
       setIsPlaying(false);
@@ -90,6 +95,7 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
       playPromise
         .then(() => {
           setIsPlaying(true);
+          setVideoLoaded(true);
         })
         .catch((error) => {
           console.warn('Autoplay waiting for user gesture or source load:', error);
@@ -129,22 +135,34 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
         <video
           ref={videoRef}
           src={videoSource}
-          autoPlay={!prefersReducedMotion}
-          muted={isMuted}
+          autoPlay
+          muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80"
           onLoadedData={() => {
+            setVideoLoaded(true);
+            setVideoError(false);
+          }}
+          onCanPlay={() => {
             setVideoLoaded(true);
             setVideoError(false);
           }}
           onError={() => {
             setVideoError(true);
           }}
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover object-center z-0 transition-opacity duration-1000 ${
             videoLoaded && !videoError ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
         />
 
         {/* Cinematic Animated Slideshow Backdrop when video is pending or loading */}
