@@ -17,22 +17,22 @@
 #### Step 1: Place your MP4 video in the assets folder
 Copy your video file into your project at:
 ```text
-public/assets/hero-video.mp4
+public/assets/hero-video.mp4.mp4
 ```
 
-> **Note on Case Sensitivity**: Ensure the filename is exactly all lowercase `hero-video.mp4`.
+> **Note**: The code references `/assets/hero-video.mp4.mp4`.
 
 #### Step 2: Commit and push the video to GitHub
-In your project terminal:
+In your project repository:
 ```bash
-git add public/assets/hero-video.mp4
+git add public/assets/hero-video.mp4.mp4
 git commit -m "Add cinematic hero video asset"
 git push origin main
 ```
 
 #### Step 3: Verify Netlify Deployment
 1. Netlify will detect the commit and trigger a new build (`npm run build`).
-2. Vite automatically copies `public/assets/hero-video.mp4` into `dist/assets/hero-video.mp4`.
+2. Vite automatically copies `public/assets/hero-video.mp4.mp4` into `dist/assets/hero-video.mp4.mp4`.
 3. Open your Netlify site URL. The cinematic video will autoplay edge-to-edge in an infinite loop!
 
 ---

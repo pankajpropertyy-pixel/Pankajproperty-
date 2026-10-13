@@ -163,7 +163,11 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
             objectFit: 'cover',
             zIndex: 0,
           }}
-        />
+        >
+          <source src={videoSource} type="video/mp4" />
+          <source src="/assets/hero-video.mp4.mp4" type="video/mp4" />
+          <source src="/assets/hero-video.mp4" type="video/mp4" />
+        </video>
 
         {/* Cinematic Animated Slideshow Backdrop when video is pending or loading */}
         {(!videoLoaded || videoError) && (

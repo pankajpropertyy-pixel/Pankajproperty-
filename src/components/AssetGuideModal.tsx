@@ -24,7 +24,7 @@ export const AssetGuideModal: React.FC<AssetGuideModalProps> = ({
 
   if (!isOpen) return null;
 
-  const targetPath = 'public/assets/hero-video.mp4';
+  const targetPath = 'public/assets/hero-video.mp4.mp4';
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(targetPath);

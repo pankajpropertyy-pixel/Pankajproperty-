@@ -14,7 +14,7 @@ import { saveVideoBlob, loadSavedVideo } from './utils/videoStorage';
 
 export default function App() {
   // Video Source Management
-  const [videoSource, setVideoSource] = useState<string>('/assets/hero-video.mp4');
+  const [videoSource, setVideoSource] = useState<string>('/assets/hero-video.mp4.mp4');
   const [isCustomFileLoaded, setIsCustomFileLoaded] = useState<boolean>(false);
   const [customFileName, setCustomFileName] = useState<string | null>(null);
 
