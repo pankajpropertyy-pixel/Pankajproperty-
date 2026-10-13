@@ -1,0 +1,6 @@
+{
+  "name": "Pankaj Property | Luxury Real Estate & Construction",
+  "description": "Discover bespoke modern villas, architectural residences, and luxury properties by Pankaj Property.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
