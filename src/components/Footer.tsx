@@ -57,6 +57,11 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('website-development')} className="hover:text-white transition-colors text-blue-400">
+                  Build Your Website (Inquiry)
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">
                   About Pankaj Property
                 </button>
@@ -82,6 +87,11 @@ export const Footer: React.FC<FooterProps> = ({
                 <a href="/robots.txt" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Search Engine Robots.txt
                 </a>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('inquiries')} className="text-blue-400 hover:underline">
+                  Client Inquiries Dashboard (Owner)
+                </button>
               </li>
               {isAdminMode && onOpenOwnerGuide && (
                 <li>
@@ -113,6 +123,10 @@ export const Footer: React.FC<FooterProps> = ({
               </a>
             </p>
             <p className="text-neutral-300 text-xs">{COMPANY_INFO.email}</p>
+            <p className="text-neutral-400 text-[11px] leading-relaxed flex items-start gap-1">
+              <span className="text-[#c5a880]">Office:</span>
+              <span>{COMPANY_INFO.address}</span>
+            </p>
             <p className="text-[11px] text-neutral-500 leading-relaxed">
               {COMPANY_INFO.hours}
             </p>

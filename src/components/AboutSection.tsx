@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
             Crafting Residences of Distinction & Enduring Value
           </h2>
           <p className="text-base sm:text-lg text-neutral-300 font-light leading-relaxed">
-            At <strong className="text-white font-medium">Pankaj Property</strong>, we bridge the boundary between visionary architecture and master construction. Every villa we develop is conceived as a livable work of art.
+            Headquartered on <strong className="text-white font-medium">Junwani Road, Bhilai (Chhattisgarh)</strong>, at <strong className="text-white font-medium">Pankaj Property</strong> we bridge the boundary between visionary architecture and master construction. Every luxury villa and residence we develop is conceived as a livable work of art.
           </p>
         </div>
 

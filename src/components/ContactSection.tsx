@@ -113,10 +113,19 @@ export const ContactSection: React.FC = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-neutral-400">Corporate Lounge</span>
-                  <p className="text-sm text-white mt-0.5 leading-relaxed">
-                    {COMPANY_INFO.address}
+                  <span className="text-xs uppercase tracking-wider text-neutral-400">Corporate Office & Experience Lounge</span>
+                  <p className="text-base text-white font-medium mt-0.5 leading-relaxed">
+                    Junwani Road, Bhilai, Chhattisgarh
                   </p>
+                  <a
+                    href="https://maps.google.com/?q=Junwani+Road+Bhilai+Chhattisgarh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#c5a880] hover:text-white transition-colors mt-1.5 font-medium underline underline-offset-4 decoration-[#c5a880]/50"
+                  >
+                    <span>View Location on Google Maps</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
               </div>
             </div>

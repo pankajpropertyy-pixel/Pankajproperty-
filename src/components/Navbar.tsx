@@ -27,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Home', target: 'home' },
     { label: 'Projects', target: 'projects' },
     { label: 'Featured Villa', target: 'featured-villa' },
+    { label: 'Build Website', target: 'website-development' },
     { label: 'About Us', target: 'about' },
     { label: 'Contact', target: 'contact' }
   ];

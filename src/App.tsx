@@ -3,6 +3,8 @@ import { Navbar } from './components/Navbar';
 import { HeroVideo } from './components/HeroVideo';
 import { ProjectsSection } from './components/ProjectsSection';
 import { ProjectDetailView } from './components/ProjectDetailView';
+import { WebDevInquirySection } from './components/WebDevInquirySection';
+import { InquiriesDashboardModal } from './components/InquiriesDashboardModal';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -27,6 +29,7 @@ export default function App() {
   const [guideModalOpen, setGuideModalOpen] = useState<boolean>(false);
   const [tourModalOpen, setTourModalOpen] = useState<boolean>(false);
   const [tourModalProject, setTourModalProject] = useState<PropertyProject | null>(null);
+  const [dashboardModalOpen, setDashboardModalOpen] = useState<boolean>(false);
 
   // Routing / Project Detail State
   const [selectedProject, setSelectedProject] = useState<PropertyProject | null>(null);
@@ -43,20 +46,23 @@ export default function App() {
     });
   }, []);
 
-  // Keyboard shortcut (Alt+V or Ctrl+Shift+V) for owner to open video guide privately
+  // Keyboard shortcut (Alt+V or Ctrl+Shift+V) for owner to open video guide privately; Alt+D for Inquiries Dashboard
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.altKey && e.key.toLowerCase() === 'v') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v')) {
         e.preventDefault();
         setIsAdminMode(true);
         setGuideModalOpen(true);
+      } else if (e.altKey && e.key.toLowerCase() === 'd') {
+        e.preventDefault();
+        setDashboardModalOpen(true);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Listen to hash changes for deep linking (e.g. #project/grand-sunset-villa)
+  // Listen to hash changes for deep linking
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -75,6 +81,12 @@ export default function App() {
       } else if (hash === '#projects') {
         setSelectedProject(null);
         setCurrentSection('projects');
+      } else if (hash === '#website-development') {
+        setSelectedProject(null);
+        setCurrentSection('website-development');
+      } else if (hash === '#inquiries') {
+        setSelectedProject(null);
+        setDashboardModalOpen(true);
       } else if (hash === '#about') {
         setSelectedProject(null);
         setCurrentSection('about');
@@ -124,6 +136,11 @@ export default function App() {
       return;
     }
 
+    if (sectionId === 'inquiries') {
+      setDashboardModalOpen(true);
+      return;
+    }
+
     window.location.hash = `#${sectionId}`;
     const el = document.getElementById(sectionId);
     if (el) {
@@ -159,7 +176,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] text-[#f4f2ee] flex flex-col font-sans selection:bg-[#c5a880] selection:text-black">
+    <div className="min-h-screen bg-[#0b0c0e] text-[#f4f2ee] flex flex-col font-sans selection:bg-[#2563eb] selection:text-white">
       {/* Client-Facing Navigation Header */}
       <Navbar
         onNavigate={handleNavigate}
@@ -175,9 +192,9 @@ export default function App() {
             onBookTour={handleBookTour}
           />
         ) : (
-          /* Full Homepage Showcase - 100% Client-Facing */
+          /* Full Homepage Showcase */
           <>
-            {/* Cinematic Hero Section using uploaded MP4 video */}
+            {/* Cinematic Hero Section */}
             <HeroVideo
               videoSource={videoSource}
               onExploreProjects={() => handleNavigate('projects')}
@@ -192,6 +209,11 @@ export default function App() {
               onSelectProject={handleSelectProject}
             />
 
+            {/* Modern Client Inquiry Form for Website Development */}
+            <WebDevInquirySection
+              onOpenDashboard={() => setDashboardModalOpen(true)}
+            />
+
             {/* About Pankaj Property Section */}
             <AboutSection />
 
@@ -201,7 +223,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Global Luxury Footer */}
+      {/* Global Footer */}
       <Footer
         onNavigate={handleNavigate}
         onOpenOwnerGuide={() => setGuideModalOpen(true)}
@@ -223,6 +245,12 @@ export default function App() {
         isOpen={tourModalOpen}
         onClose={() => setTourModalOpen(false)}
         project={tourModalProject}
+      />
+
+      {/* Client Inquiries Management Dashboard Modal */}
+      <InquiriesDashboardModal
+        isOpen={dashboardModalOpen}
+        onClose={() => setDashboardModalOpen(false)}
       />
     </div>
   );
