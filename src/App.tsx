@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroVideo } from './components/HeroVideo';
-import { ProjectsSection } from './components/ProjectsSection';
-import { ProjectDetailView } from './components/ProjectDetailView';
+import { SunCityPlotsSection } from './components/SunCityPlotsSection';
+import { WallfortMangalamSection } from './components/WallfortMangalamSection';
+import { ShreeShyamViharSection } from './components/ShreeShyamViharSection';
 import { WebDevInquirySection } from './components/WebDevInquirySection';
 import { InquiriesDashboardModal } from './components/InquiriesDashboardModal';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { AssetGuideModal } from './components/AssetGuideModal';
-import { TourModal } from './components/TourModal';
-import { PROPERTIES } from './data/properties';
-import { PropertyProject } from './types/property';
 import { saveVideoBlob, loadSavedVideo } from './utils/videoStorage';
 
 export default function App() {
@@ -27,12 +25,9 @@ export default function App() {
 
   // Modals state
   const [guideModalOpen, setGuideModalOpen] = useState<boolean>(false);
-  const [tourModalOpen, setTourModalOpen] = useState<boolean>(false);
-  const [tourModalProject, setTourModalProject] = useState<PropertyProject | null>(null);
   const [dashboardModalOpen, setDashboardModalOpen] = useState<boolean>(false);
 
-  // Routing / Project Detail State
-  const [selectedProject, setSelectedProject] = useState<PropertyProject | null>(null);
+  // Routing State
   const [currentSection, setCurrentSection] = useState<string>('home');
 
   // Load saved video from IndexedDB on startup if available
@@ -62,36 +57,26 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Listen to hash changes for deep linking
+  // Listen to hash changes for smooth in-page navigation
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      if (hash.startsWith('#project/')) {
-        const slug = hash.replace('#project/', '');
-        const found = PROPERTIES.find((p) => p.slug === slug);
-        if (found) {
-          setSelectedProject(found);
-          return;
-        }
-      }
       
       if (!hash || hash === '#' || hash === '#home') {
-        setSelectedProject(null);
         setCurrentSection('home');
-      } else if (hash === '#projects') {
-        setSelectedProject(null);
-        setCurrentSection('projects');
+      } else if (hash === '#suncity-plots') {
+        setCurrentSection('suncity-plots');
+      } else if (hash === '#wallfort-mangalam') {
+        setCurrentSection('wallfort-mangalam');
+      } else if (hash === '#shree-shyam-vihar') {
+        setCurrentSection('shree-shyam-vihar');
       } else if (hash === '#website-development') {
-        setSelectedProject(null);
         setCurrentSection('website-development');
       } else if (hash === '#inquiries') {
-        setSelectedProject(null);
         setDashboardModalOpen(true);
       } else if (hash === '#about') {
-        setSelectedProject(null);
         setCurrentSection('about');
       } else if (hash === '#contact') {
-        setSelectedProject(null);
         setCurrentSection('contact');
       }
     };
@@ -110,31 +95,10 @@ export default function App() {
       document.head.appendChild(link);
     }
     link.href = window.location.origin + window.location.pathname + window.location.hash;
-  }, [selectedProject]);
-
-  const handleSelectProject = (project: PropertyProject) => {
-    setSelectedProject(project);
-    window.location.hash = `#project/${project.slug}`;
-  };
-
-  const handleBackToCatalog = () => {
-    setSelectedProject(null);
-    window.location.hash = '#projects';
-    const el = document.getElementById('projects');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  }, []);
 
   const handleNavigate = (sectionId: string) => {
-    setSelectedProject(null);
     setCurrentSection(sectionId);
-
-    if (sectionId === 'featured-villa') {
-      const flagship = PROPERTIES.find((p) => p.featuredInHeroVideo) || PROPERTIES[0];
-      handleSelectProject(flagship);
-      return;
-    }
 
     if (sectionId === 'inquiries') {
       setDashboardModalOpen(true);
@@ -150,11 +114,6 @@ export default function App() {
     }
   };
 
-  const handleBookTour = (project: PropertyProject) => {
-    setTourModalProject(project);
-    setTourModalOpen(true);
-  };
-
   const handleCustomFileSelected = async (file: File) => {
     try {
       const objectUrl = await saveVideoBlob(file);
@@ -163,7 +122,6 @@ export default function App() {
       setCustomFileName(file.name);
       setGuideModalOpen(false);
       
-      setSelectedProject(null);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Failed to create and save object URL for video:', err);
@@ -176,51 +134,42 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] text-[#f4f2ee] flex flex-col font-sans selection:bg-[#2563eb] selection:text-white">
+    <div className="min-h-screen bg-[#0b0c0e] text-[#f4f2ee] flex flex-col font-sans selection:bg-[#c5a880] selection:text-black">
       {/* Client-Facing Navigation Header */}
       <Navbar
         onNavigate={handleNavigate}
-        currentSection={selectedProject ? 'projects' : currentSection}
+        currentSection={currentSection}
       />
 
       <main className="flex-1">
-        {selectedProject ? (
-          /* Dedicated Project Detail Page */
-          <ProjectDetailView
-            project={selectedProject}
-            onBack={handleBackToCatalog}
-            onBookTour={handleBookTour}
-          />
-        ) : (
-          /* Full Homepage Showcase */
-          <>
-            {/* Cinematic Hero Section */}
-            <HeroVideo
-              videoSource={videoSource}
-              onExploreProjects={() => handleNavigate('projects')}
-              onContactUs={() => handleNavigate('contact')}
-              isAdminMode={isAdminMode}
-              onOpenVideoGuide={() => setGuideModalOpen(true)}
-            />
+        {/* Cinematic Hero Section using uploaded MP4 video */}
+        <HeroVideo
+          videoSource={videoSource}
+          onExploreProjects={() => handleNavigate('suncity-plots')}
+          onContactUs={() => handleNavigate('contact')}
+          isAdminMode={isAdminMode}
+          onOpenVideoGuide={() => setGuideModalOpen(true)}
+        />
 
-            {/* Curated Projects Section */}
-            <ProjectsSection
-              projects={PROPERTIES}
-              onSelectProject={handleSelectProject}
-            />
+        {/* 🏡 Sun City – Residential Plots in Durg Showcase */}
+        <SunCityPlotsSection />
 
-            {/* Modern Client Inquiry Form for Website Development */}
-            <WebDevInquirySection
-              onOpenDashboard={() => setDashboardModalOpen(true)}
-            />
+        {/* 🏡 Wallfort Mangalam City – Premium Residential Plots Showcase */}
+        <WallfortMangalamSection />
 
-            {/* About Pankaj Property Section */}
-            <AboutSection />
+        {/* 🏡 Shree Shyam Vihar – Residential Plots in Durg Showcase */}
+        <ShreeShyamViharSection />
 
-            {/* Contact & Private Consultation Section */}
-            <ContactSection />
-          </>
-        )}
+        {/* Modern Client Inquiry Form for Website Development */}
+        <WebDevInquirySection
+          onOpenDashboard={() => setDashboardModalOpen(true)}
+        />
+
+        {/* About Pankaj Property & Construction Section */}
+        <AboutSection />
+
+        {/* Contact & Office Consultation Section (Junwani Road, Bhilai) */}
+        <ContactSection />
       </main>
 
       {/* Global Footer */}
@@ -238,13 +187,6 @@ export default function App() {
         activeVideoSource={videoSource}
         isCustomFileLoaded={isCustomFileLoaded}
         customFileName={customFileName}
-      />
-
-      {/* Schedule Tour & Inquire Modal */}
-      <TourModal
-        isOpen={tourModalOpen}
-        onClose={() => setTourModalOpen(false)}
-        project={tourModalProject}
       />
 
       {/* Client Inquiries Management Dashboard Modal */}

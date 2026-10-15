@@ -220,12 +220,12 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
 
           {/* Clean Client Action CTAs */}
           <div className="pt-2 flex flex-wrap items-center gap-4">
-            {/* Primary: Explore Projects */}
+            {/* Primary: Sun City Plots */}
             <button
               onClick={onExploreProjects}
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#c5a880] hover:bg-[#b8986d] text-black font-semibold text-sm tracking-wide shadow-xl shadow-[#c5a880]/20 hover:shadow-[#c5a880]/30 transition-all hover:scale-102 focus:outline-none focus:ring-2 focus:ring-[#c5a880]"
             >
-              <span>Explore Projects</span>
+              <span>🏡 Sun City Plots</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 

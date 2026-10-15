@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { InquiryFormData } from '../types/inquiry';
 import { saveClientInquiry } from '../services/inquiryStorage';
+import { COMPANY_INFO } from '../data/properties';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface WebsiteInquiryFormProps {
   onSuccess?: () => void;
@@ -32,6 +34,7 @@ export const WebsiteInquiryForm: React.FC<WebsiteInquiryFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
+  const [lastSubmittedPayload, setLastSubmittedPayload] = useState<InquiryFormData | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Occupation options

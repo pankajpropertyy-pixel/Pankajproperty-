@@ -52,12 +52,22 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('projects')} className="hover:text-white transition-colors">
-                  Featured Residences
+                <button onClick={() => onNavigate('suncity-plots')} className="hover:text-white transition-colors text-[#c5a880]">
+                  Sun City Plots (Durg)
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('website-development')} className="hover:text-white transition-colors text-blue-400">
+                <button onClick={() => onNavigate('wallfort-mangalam')} className="hover:text-white transition-colors text-[#c5a880]">
+                  Wallfort Mangalam (Durg)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('shree-shyam-vihar')} className="hover:text-white transition-colors text-[#c5a880]">
+                  Shree Shyam Vihar (Durg)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('website-development')} className="hover:text-white transition-colors">
                   Build Your Website (Inquiry)
                 </button>
               </li>

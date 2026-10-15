@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from 'lucide-react';
-import { COMPANY_INFO, PROPERTIES } from '../data/properties';
+import { COMPANY_INFO } from '../data/properties';
 import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const ContactSection: React.FC = () => {
@@ -8,8 +8,8 @@ export const ContactSection: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    project: PROPERTIES[0].name,
-    budget: '$3M - $5M',
+    inquiryType: 'Property & Construction Inquiry',
+    budget: 'Flexible',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -20,7 +20,7 @@ export const ContactSection: React.FC = () => {
   };
 
   const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappNumber}?text=${encodeURIComponent(
-    `Hello Pankaj Property, my name is ${formData.name || 'a prospective buyer'}. I would like to inquire about ${formData.project}.`
+    `Hello Pankaj Property, my name is ${formData.name || 'a client'}. I would like to inquire about ${formData.inquiryType}.`
   )}`;
 
   return (
@@ -43,7 +43,7 @@ export const ContactSection: React.FC = () => {
                 Initiate a Confidential Conversation
               </h2>
               <p className="text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
-                Whether you wish to schedule a private viewing of <strong className="text-white font-medium">The Grand Sunset Villa</strong> or discuss custom development opportunities, our senior directors are at your service.
+                Whether you wish to visit our Junwani Road office in Bhilai or discuss your property, construction, and development requirements, our senior directors are at your service.
               </p>
             </div>
 
@@ -160,7 +160,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-serif-luxury text-white">Thank You, {formData.name}</h3>
                 <p className="text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
-                  Your inquiry regarding <strong className="text-white">{formData.project}</strong> has been received. Our senior relationship director will contact you via email or phone within 2 business hours.
+                  Your inquiry regarding <strong className="text-white">{formData.inquiryType}</strong> has been received. Our senior team will contact you via email or phone within 2 business hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -216,30 +216,30 @@ export const ContactSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-medium text-neutral-300">Residence of Interest</label>
+                    <label className="block text-xs font-medium text-neutral-300">Service of Interest</label>
                     <select
-                      value={formData.project}
-                      onChange={(e) => setFormData({ ...formData, project: e.target.value })}
+                      value={formData.inquiryType}
+                      onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#1a1c22] border border-white/10 text-white text-sm focus:outline-none focus:border-[#c5a880] transition-colors"
                     >
-                      {PROPERTIES.map((p) => (
-                        <option key={p.id} value={p.name} className="bg-[#1a1c22]">
-                          {p.name}
-                        </option>
-                      ))}
+                      <option value="Property & Construction Inquiry" className="bg-[#1a1c22]">Property & Construction Consultation</option>
+                      <option value="Website Development Services" className="bg-[#1a1c22]">Website Development Services</option>
+                      <option value="Office Visit - Junwani Road, Bhilai" className="bg-[#1a1c22]">Office Visit (Junwani Road, Bhilai)</option>
+                      <option value="Architectural Design Consultation" className="bg-[#1a1c22]">Architectural Design Consultation</option>
+                      <option value="Other Business Inquiry" className="bg-[#1a1c22]">Other Business Inquiry</option>
                     </select>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-medium text-neutral-300">Anticipated Budget Range</label>
+                    <label className="block text-xs font-medium text-neutral-300">Timeline / Preference</label>
                     <select
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#1a1c22] border border-white/10 text-white text-sm focus:outline-none focus:border-[#c5a880] transition-colors"
                     >
-                      <option value="$2M - $3M">$2M - $3M / ₹12 Cr - ₹15 Cr</option>
-                      <option value="$3M - $5M">$3M - $5M / ₹15 Cr - ₹25 Cr</option>
-                      <option value="$5M+">$5M+ / ₹25 Cr+</option>
+                      <option value="Immediate" className="bg-[#1a1c22]">Immediate (Within 1-2 weeks)</option>
+                      <option value="1-3 Months" className="bg-[#1a1c22]">1–3 Months</option>
+                      <option value="Exploring Options" className="bg-[#1a1c22]">Exploring Options</option>
                     </select>
                   </div>
                 </div>

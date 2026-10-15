@@ -25,8 +25,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { label: 'Home', target: 'home' },
-    { label: 'Projects', target: 'projects' },
-    { label: 'Featured Villa', target: 'featured-villa' },
+    { label: 'Sun City Plots', target: 'suncity-plots' },
+    { label: 'Wallfort Mangalam', target: 'wallfort-mangalam' },
+    { label: 'Shree Shyam Vihar', target: 'shree-shyam-vihar' },
     { label: 'Build Website', target: 'website-development' },
     { label: 'About Us', target: 'about' },
     { label: 'Contact', target: 'contact' }
